@@ -20,7 +20,23 @@ class SmartCalculator:
 
     def basic_calculate(self, num1, op, num2):
         """
-        Perform basic calculation
+        Perform basic calculation with the given numbers and operation.
+        
+        Args:
+            num1 (float): First number in the calculation
+            op (str): Operation to perform (+, -, *, /, ^)
+            num2 (float): Second number in the calculation
+            
+        Returns:
+            float: Result of the calculation
+            str: Error message if calculation fails
+        
+        Examples:
+            >>> calc = SmartCalculator()
+            >>> calc.basic_calculate(5, '+', 3)
+            8.0
+            >>> calc.basic_calculate(10, '/', 2)
+            5.0
         """
         # Check if operation is valid and perform calculation
         if op in self.operations:
@@ -36,6 +52,22 @@ class SmartCalculator:
         """
         Solve simple equations like: x + 5 = 10 or 3 * x = 15
         Uses a simple search approach to find x
+        
+        Args:
+            target (float): The desired result of the equation
+            operation (str): The mathematical operation (+, -, *, /, ^)
+            known_value (float): The non-x value in the equation
+            x_position (str): Whether x is on the 'left' or 'right' of the operation
+            
+        Returns:
+            float: The value of x that satisfies the equation
+            
+        Examples:
+            >>> calc = SmartCalculator()
+            >>> calc.solve_for_x(10, '+', 5, 'left')  # x + 5 = 10
+            5.0
+            >>> calc.solve_for_x(15, '*', 3, 'right')  # 3 * x = 15
+            5.0
         """
         # This demonstrates a brute-force search
         # We'll try different values of x until we find the answer
