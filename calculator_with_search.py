@@ -176,13 +176,37 @@ def main():
         if choice == '1':
             # Get two numbers and operation from user, then calculate
             try:
-                num1 = float(input("Enter first number: "))
-                op = input("Enter operation (+, -, *, /, ^): ").strip()
-                num2 = float(input("Enter second number: "))
+                # Enhanced input validation for numbers
+                while True:
+                    try:
+                        num1 = float(input("Enter first number: "))
+                        break
+                    except ValueError:
+                        print("⚠️ Please enter a valid number!")
+                
+                # Enhanced operation validation
+                valid_ops = ['+', '-', '*', '/', '^']
+                while True:
+                    op = input("Enter operation (+, -, *, /, ^): ").strip()
+                    if op in valid_ops:
+                        break
+                    print(f"⚠️ Invalid operation! Please choose from: {', '.join(valid_ops)}")
+                
+                while True:
+                    try:
+                        num2 = float(input("Enter second number: "))
+                        if op == '/' and num2 == 0:
+                            print("⚠️ Cannot divide by zero! Please enter another number.")
+                            continue
+                        break
+                    except ValueError:
+                        print("⚠️ Please enter a valid number!")
+                
                 result = calc.basic_calculate(num1, op, num2)
-                print(f"\nResult: {result}")
-            except ValueError:
-                print("Error: Please enter valid numbers")
+                print(f"\n🎯 Result: {result}")
+            except KeyboardInterrupt:
+                print("\n\nCalculation cancelled by user.")
+                continue
                 
         elif choice == '2':
             # Equation solver
