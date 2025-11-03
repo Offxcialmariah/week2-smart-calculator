@@ -3,6 +3,8 @@
 # Uses search concepts from Chapter 3
 import operator
 import math
+import json
+import os
 
 class SmartCalculator:
     """
@@ -34,6 +36,27 @@ class SmartCalculator:
         print("-" * 40)
         for i, (calc, result) in enumerate(self.history, 1):
             print(f"{i}. {calc} = {result}")
+            
+    def save_history(self, filename='calculator_history.json'):
+        """Save calculation history to file"""
+        try:
+            with open(filename, 'w') as f:
+                json.dump(self.history, f)
+            print(f"\n💾 History saved to {filename}")
+        except Exception as e:
+            print(f"\n❌ Error saving history: {e}")
+            
+    def load_history(self, filename='calculator_history.json'):
+        """Load calculation history from file"""
+        try:
+            if os.path.exists(filename):
+                with open(filename, 'r') as f:
+                    self.history = json.load(f)
+                print(f"\n📂 History loaded from {filename}")
+            else:
+                print(f"\n❌ No history file found: {filename}")
+        except Exception as e:
+            print(f"\n❌ Error loading history: {e}")
 
     def basic_calculate(self, num1, op, num2):
         """
@@ -219,7 +242,9 @@ def main():
         print("3. See Search Visualization")
         print("4. About Search Algorithms")
         print("5. View Calculation History")
-        print("6. Exit")
+        print("6. Save History")
+        print("7. Load History")
+        print("8. Exit")
         
         choice = input("\nChoose option (1-5): ")
         
@@ -286,6 +311,10 @@ def main():
         elif choice == '5':
             calc.show_history()
         elif choice == '6':
+            calc.save_history()
+        elif choice == '7':
+            calc.load_history()
+        elif choice == '8':
             print("\nThanks for using Smart Calculator! 👋")
             break
 
