@@ -17,6 +17,23 @@ class SmartCalculator:
             '/': operator.truediv,
             '^': operator.pow
         }
+        # Add calculation history tracking
+        self.history = []
+        
+    def add_to_history(self, calculation, result):
+        """Add a calculation to history"""
+        self.history.append((calculation, result))
+        
+    def show_history(self):
+        """Display calculation history"""
+        if not self.history:
+            print("\n📝 No calculations in history yet!")
+            return
+            
+        print("\n📝 Calculation History:")
+        print("-" * 40)
+        for i, (calc, result) in enumerate(self.history, 1):
+            print(f"{i}. {calc} = {result}")
 
     def basic_calculate(self, num1, op, num2):
         """
@@ -201,7 +218,8 @@ def main():
         print("2. Solve Equation (using search)")
         print("3. See Search Visualization")
         print("4. About Search Algorithms")
-        print("5. Exit")
+        print("5. View Calculation History")
+        print("6. Exit")
         
         choice = input("\nChoose option (1-5): ")
         
@@ -236,6 +254,8 @@ def main():
                 
                 result = calc.basic_calculate(num1, op, num2)
                 print(f"\n🎯 Result: {result}")
+                # Add calculation to history
+                calc.add_to_history(f"{num1} {op} {num2}", result)
             except KeyboardInterrupt:
                 print("\n\nCalculation cancelled by user.")
                 continue
@@ -264,6 +284,8 @@ def main():
             print("• A*: Uses heuristics to search more efficiently")
             
         elif choice == '5':
+            calc.show_history()
+        elif choice == '6':
             print("\nThanks for using Smart Calculator! 👋")
             break
 
